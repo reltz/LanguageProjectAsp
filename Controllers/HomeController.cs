@@ -28,18 +28,14 @@ namespace LanguageProjectAsp.Controllers
             return View();
         }
 
+        //Method to retrieve the ViewResult with the view Exercise1. 
+        //@Rodrigo Eltz
         public ViewResult Exercise1()
         {
-            string allColumns = "Rodrigo Eltz - 040913098 \n\n";
-
+            // Names of all the columns
             var columns = new List<string> { "REF_DATE", "GEO", "DGUID", "Sex", "Age group",
                 "Student response", "UOM", "UOM_ID", "SCALAR_FACTOR", "SCALAR_ID", "VECTOR", "COORDINATE",
                 "VALUE", "STATUS", "SYMBOL", "TERMINATED", "DECIMALS"};
-            foreach (string element in columns)
-            {
-                Console.WriteLine(element);
-                allColumns += (element + "\n");
-            }
 
             return View(columns);
         }

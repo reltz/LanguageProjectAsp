@@ -1,12 +1,19 @@
 ﻿
+@*
+    @Rodrigo Eltz
+    Defines the type of the model passed to View() method in the controller
+*@
+
 @model List<string>
 @{
     ViewData["Title"] = "Exercise1";
 }
 
+
 <h1 class="border-bottom" >@ViewData["Title"] - Rodrigo Eltz - 040913098</h1>
 <h2 class="border-bottom" > Columns </h2>
 
+@*Iterates over the list of strings and renders each one in a h3 html element*@
 @foreach (var element in Model)
 {
     <h3>@element</h3>
