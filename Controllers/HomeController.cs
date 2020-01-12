@@ -28,9 +28,20 @@ namespace LanguageProjectAsp.Controllers
             return View();
         }
 
-        public IActionResult Exercise1()
+        public ViewResult Exercise1()
         {
-            return View();
+            string allColumns = "Rodrigo Eltz - 040913098 \n\n";
+
+            var columns = new List<string> { "REF_DATE", "GEO", "DGUID", "Sex", "Age group",
+                "Student response", "UOM", "UOM_ID", "SCALAR_FACTOR", "SCALAR_ID", "VECTOR", "COORDINATE",
+                "VALUE", "STATUS", "SYMBOL", "TERMINATED", "DECIMALS"};
+            foreach (string element in columns)
+            {
+                Console.WriteLine(element);
+                allColumns += (element + "\n");
+            }
+
+            return View(columns);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
