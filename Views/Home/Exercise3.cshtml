@@ -13,24 +13,22 @@
 <h1 class="border-bottom">@ViewData["Title"] - Rodrigo Eltz - 040913098</h1>
 <h2 class="border-bottom"> Records </h2>
 <div class="container">
+    <div class="row">
 @*Iterates over the list of strings and renders each one in a h3 html element*@
 @foreach (var element in Model)
 {
-    <div class="row">
-        <div class="col-sm-5">
-            <div>REF_DATE</div>
-            <div>@element.RefDate</div>
-            <div>GEO</div>
-            <div> @element.Geo</div>
+          <div class="row">
+            <div class="pr-2">REF_DATE: @element.RefDate </div>
+            <div class="pr-2"> GEO: @element.Geo </div>
+            <div class="pr-2"> Sex: @element.Sex </div>
+            <div class="pr-2"> Age Group: @element.AgeGroup</div>
+            <div class="pr-2"> Student Response: @element.StudentResponse </div>
+            <div class="pr-2"> Vector: @element.Vector </div>
+            <div class="pr-2"> Coordinate: @element.Coordinate </div>
+            <div class="pr-2"> Value: @element.Value </div>
+          </div>
+    }
         </div>
-    </div>
-  
-    @*"", "GEO", "DGUID", "Sex", "Age group",
-    "Student response", "UOM", "UOM_ID", "SCALAR_FACTOR", "SCALAR_ID", "VECTOR", "COORDINATE",
-    "VALUE", "STATUS", "SYMBOL", "TERMINATED", "DECIMALS"*@
-
-      <p/>
-}
     </div>
 
 

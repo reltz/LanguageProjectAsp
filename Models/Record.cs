@@ -90,11 +90,11 @@ namespace LanguageProjectAsp.Models
             return record;
         }
 
-        public override string ToString()
-        {
-            return "Ref_Date: " + RefDate + " GEO: " + Geo + " Sex: " + Sex + " Age Group: " + AgeGroup
-                + " Student Response: " + StudentResponse + " Vector: " + Vector + " Coordinate:  " + Coordinate
-                + " Value: " + Value;
-        }
+        //public override string ToString()
+        //{
+        //    return "Ref_Date: " + RefDate + " GEO: " + Geo + " Sex: " + Sex + " Age Group: " + AgeGroup
+        //        + " Student Response: " + StudentResponse + " Vector: " + Vector + " Coordinate:  " + Coordinate
+        //        + " Value: " + Value;
+        //}
     }
 }
