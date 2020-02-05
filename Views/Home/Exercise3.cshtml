@@ -1,0 +1,36 @@
+﻿@*
+    @Rodrigo Eltz
+    Defines the type of the model passed to View() method in the controller
+    Exercise 3 - View that displays the five first records from the model Record.
+*@
+
+@model List<Record>
+@{
+    ViewData["Title"] = "Exercise3";
+}
+
+
+<h1 class="border-bottom">@ViewData["Title"] - Rodrigo Eltz - 040913098</h1>
+<h2 class="border-bottom"> Records </h2>
+<div class="container">
+@*Iterates over the list of strings and renders each one in a h3 html element*@
+@foreach (var element in Model)
+{
+    <div class="row">
+        <div class="col-sm-5">
+            <div>REF_DATE</div>
+            <div>@element.RefDate</div>
+            <div>GEO</div>
+            <div> @element.Geo</div>
+        </div>
+    </div>
+  
+    @*"", "GEO", "DGUID", "Sex", "Age group",
+    "Student response", "UOM", "UOM_ID", "SCALAR_FACTOR", "SCALAR_ID", "VECTOR", "COORDINATE",
+    "VALUE", "STATUS", "SYMBOL", "TERMINATED", "DECIMALS"*@
+
+      <p/>
+}
+    </div>
+
+
