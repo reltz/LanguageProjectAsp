@@ -9,26 +9,25 @@
     ViewData["Title"] = "Exercise3";
 }
 
-
 <h1 class="border-bottom">@ViewData["Title"] - Rodrigo Eltz - 040913098</h1>
 <h2 class="border-bottom"> Records </h2>
 <div class="container">
     <div class="row">
-@*Iterates over the list of strings and renders each one in a h3 html element*@
-@foreach (var element in Model)
-{
-          <div class="row">
-            <div class="pr-2">REF_DATE: @element.RefDate </div>
-            <div class="pr-2"> GEO: @element.Geo </div>
-            <div class="pr-2"> Sex: @element.Sex </div>
-            <div class="pr-2"> Age Group: @element.AgeGroup</div>
-            <div class="pr-2"> Student Response: @element.StudentResponse </div>
-            <div class="pr-2"> Vector: @element.Vector </div>
-            <div class="pr-2"> Coordinate: @element.Coordinate </div>
-            <div class="pr-2"> Value: @element.Value </div>
-          </div>
-    }
-        </div>
+        @*Iterates over the list of Records and renders each one in a row*@
+        @foreach (var element in Model)
+        {
+            <div class="row">
+                <div class="pr-2">REF_DATE: @element.RefDate </div>
+                <div class="pr-2"> GEO: @element.Geo </div>
+                <div class="pr-2"> Sex: @element.Sex </div>
+                <div class="pr-2"> Age Group: @element.AgeGroup</div>
+                <div class="pr-2"> Student Response: @element.StudentResponse </div>
+                <div class="pr-2"> Vector: @element.Vector </div>
+                <div class="pr-2"> Coordinate: @element.Coordinate </div>
+                <div class="pr-2"> Value: @element.Value </div>
+            </div>
+        }
+    </div>
     </div>
 
 

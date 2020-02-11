@@ -7,13 +7,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using LanguageProjectAsp.Models;
 using System.IO;
+/** Main application controller
+ * @Author Rodrigo Eltz
+ */
 
 namespace LanguageProjectAsp.Controllers
 {
+    /// <summary>
+    ///  Declares Home Controller
+    /// </summary>
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
+        /// <summary>
+        /// Constructor with logger parameter
+        /// </summary>
+        /// <param name="logger"></param>
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -29,9 +39,10 @@ namespace LanguageProjectAsp.Controllers
             return View();
         }
 
-        /** Method to retrieve the ViewResult with the view Exercise1. 
-        @Rodrigo Eltz
-    */
+        /// <summary>
+        /// Method to retrieve the ViewResult with the view Exercise1 page. 
+        /// </summary>
+        /// <returns>a ViewResult</returns>
         public ViewResult Exercise1()
         {
             // Names of all the columns
@@ -42,14 +53,19 @@ namespace LanguageProjectAsp.Controllers
             return View(columns);
         }
 
-        //Method to retrieve the ViewResult for the Exercise 3
-        //@Rodrigo Eltz
+        /// <summary>
+        /// Method to retrieve the ViewResult for the Exercise 3 page
+        /// </summary>
+        /// <returns>a ViewResult</returns>
         public ViewResult Exercise3()
         {
             return View(readFromCsv()); ;
         }
 
+        /// <summary>
         /// Method that reads the 5 first records from the CSV and creates a list of objects of type Record.
+        /// </summary>
+        /// <returns>A list of Records</returns>
         private List<Record> readFromCsv()
         {
             var filePath = "D:\\13100262.csv";

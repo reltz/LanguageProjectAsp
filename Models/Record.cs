@@ -74,19 +74,12 @@ namespace LanguageProjectAsp.Models
         public static Record FromCsv(string line)
         {
             var split = line.Split(',');
-            //System.Diagnostics.Debug.WriteLine("split 3 is "+ Convert.ToString(split[3]));
-            //System.Diagnostics.Debug.WriteLine("split 4 is " + Convert.ToString(split[4]));
-            //System.Diagnostics.Debug.WriteLine("split 5 is " + Convert.ToString(split[5]));
-            //System.Diagnostics.Debug.WriteLine("split 10 is " + Convert.ToString(split[10]));
-            //System.Diagnostics.Debug.WriteLine("split 11 is " + Convert.ToString(split[11]));
-            //System.Diagnostics.Debug.WriteLine("split 12 is " + Convert.ToString(split[12]));
             Record record = new Record(Convert.ToString(split[3]),
                                        Convert.ToString(split[4]),
                                        Convert.ToString(split[5]),
                                        Convert.ToString(split[10]),
                                        Convert.ToString(split[11]),
                                        Convert.ToString(split[12]));
-
             return record;
         }
 
