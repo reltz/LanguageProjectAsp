@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "Assignment3";
+}
+@model List<Record>
+
+<h1 class="border-bottom">@ViewData["Title"] - Rodrigo Eltz - 040913098</h1>
+<h2 class="border-bottom"> Records </h2>
+<div class="container">
+    <form id="table" runat="server">
+        <table class="table table-striped table-dark">
+            <thead>
+            <th scope="col">REF_DATE</th>
+            <th scope="col">GEO</th>
+            <th scope="col">Sex</th>
+            <th scope="col">Age Group</th>
+            <th scope="col">Student Response</th>
+            <th scope="col">Vector</th>
+            <th scope="col">Coordinate</th>
+            <th scope="col">Value</th>
+            </thead>
+            <tbody>
+                @foreach (var element in Model)
+                {
+                    <tr>
+                        @foreach (var prop in @element.GetType().GetProperties())
+                        {
+                            <td>
+                                @prop.GetValue(element, null)
+                            </td>
+                        }
+                        <td><button class="btn-secondary">Edit</button></td>
+                        <td><button class="btn-secondary">Delete</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+    <button class="btn-dark">Add new entry</button>
+</div>

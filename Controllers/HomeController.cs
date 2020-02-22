@@ -19,6 +19,7 @@ namespace LanguageProjectAsp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        static readonly string filePath ="D:\\13100262.csv";
 
         /// <summary>
         /// Constructor with logger parameter
@@ -62,13 +63,17 @@ namespace LanguageProjectAsp.Controllers
             return View(readFromCsv()); ;
         }
 
+        public ViewResult Assignment3()
+        {
+            return View(readFromCsv());
+        }
+
         /// <summary>
         /// Method that reads the 5 first records from the CSV and creates a list of objects of type Record.
         /// </summary>
         /// <returns>A list of Records</returns>
         private List<Record> readFromCsv()
         {
-            var filePath = "D:\\13100262.csv";
             List<Record> fiveRecords = new List<Record>();
             using (StreamReader stream = new StreamReader(filePath))
             {
@@ -87,6 +92,32 @@ namespace LanguageProjectAsp.Controllers
             System.Diagnostics.Debug.WriteLine(fiveRecords);
             return fiveRecords;
         }
+
+       private void readAllFromCsv()
+        {
+            //try
+            //{
+            //    using(StreamReader stream = new StreamReader(filePath))
+            //    {
+            //        List<Record> allRecords = new List<Record>();
+
+            //        stream.ReadLine();
+            //        while(!stream.EndOfStream)
+            //        {
+            //            allRecords.Add(Record.FromCsv(stream.ReadLine()));
+            //        }
+
+            //        for (int i=0; i< allRecords.Count(); i++)
+            //        {
+                        
+            //        }
+            //    }
+            //} catch(err)
+            //{
+
+            //}
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
