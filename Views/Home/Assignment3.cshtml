@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Assignment3";
 }
-@model List<Record>
+@model RecordsAndEntries
 
 <h1 class="border-bottom">@ViewData["Title"] - Rodrigo Eltz - 040913098</h1>
 <h2 class="border-bottom"> Records </h2>
@@ -26,7 +26,7 @@
                 <th scope="col" colspan="2" class="text-center">Actions</th>
             </tr>
             <tbody>
-                @foreach (var element in Model)
+                @foreach (var element in Model.records)
                 {
                     <tr>
                         @foreach (var prop in @element.GetType().GetProperties())
@@ -53,34 +53,54 @@
             <div class="modal-header">
                 <div class="modal-title"> Add new entry</div>
             </div>
-            <div class="modal-body">
-                <form id="new-entry">
-                    <div class="form-group">
-                        <label>Ref Date</label>
-                        <input type="number" />
-                    </div>
-                    <div class="form-group">
-                        <label>GEO</label>
-                        <input type="text" />
-                    </div>
-                    <div class="form-group">
-                        <label>Sex</label>
-                        <input type="text" />
-                    </div>
-                    <div class="form-group">
-                        <label>Age group</label>
-                        <input type="text" />
-                    </div>
-                    <div class="form-group">
-
-
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-light" data-dismiss="modal">Cancel</button>
-                <button class="btn-dark">Save</button>
-            </div>
+               <form id="new-entry" method="post" runat="server" asp-action="EntryTransform">
+                <div class="form-group">
+                    <label>Ref Date</label>
+                    <input class="form-control" name="refDate" type="number" asp-for="entry.RefDate" />
+                </div>
+                <div class="form-group">
+                    <label>GEO</label>
+                    <input class="form-control" asp-for="entry.Geo" name="geo" type="text" />
+                </div>
+                <div class="form-group">
+                    <label>Sex</label>
+                    <input class="form-control" asp-for="entry.Sex" name="sex" type="text" />
+                </div>
+                <div class="form-group">
+                    <label>Age group</label>
+                    <input class="form-control" asp-for="entry.AgeGroup" name="ageGroup" type="text" />
+                </div>
+                <div class="form-group">
+                    <label>Student Response</label>
+                    <input class="form-control" name="studentResponse" type="text" asp-for="entry.StudentResponse"/>
+                </div>
+                <div class="form-group">
+                    <label>UOM</label>
+                    <input class="form-control" name="uom" type="text" asp-for="entry.Uom"/>
+                </div>
+                <div class="form-group">
+                    <label>UOM ID</label>
+                    <input class="form-control" name="uomId" type="number" asp-for="entry.UomId" />
+                </div>
+                <div class="form-group">
+                    <label>Scalar Factor</label>
+                    <input class="form-control" name="scalarFactor" type="text" asp-for="entry.ScalarFactor" />
+                </div>
+                <div class="form-group">
+                    <label>Vector</label>
+                    <input class="form-control" name="vector" type="text" asp-for="entry.Vector" />
+                </div>
+                <div class="form-group">
+                    <label>Coordinate</label>
+                    <input class="form-control" name="coordinate" type="text" asp-for="entry.Coordinate" />
+                </div>
+                <div class="form-group">
+                    <label>Value</label>
+                    <input class="form-control" name="value" type="number"  asp-for="entry.Value"/>
+                </div>
+                <button type="submit" class="btn btn-secondary">Save</button>
+                <button class="btn btn-light" data-dismiss="modal">Cancel</button>
+            </form>
         </div>
     </div>
 </div>

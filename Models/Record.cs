@@ -43,7 +43,23 @@ namespace LanguageProjectAsp.Models
             Value = value;
         }
 
-       
+        public Record()
+        {
+            ID = -1;
+            RefDate = -1;
+            Geo = "";
+            Sex = "";
+            AgeGroup = "";
+            StudentResponse = "";
+            Uom = "";
+            UomId = -1;
+            ScalarFactor = "";
+            Vector = "";
+            Coordinate = "";
+            Value = -1;
+        }
+
+
 
         /// This method parses the csv and creates an object of type Record for each line
         public static Record FromCsv(string line)
@@ -65,21 +81,26 @@ namespace LanguageProjectAsp.Models
             var coordinate = split[10].Replace("\"", "");
             int value = Int32.Parse(split[11].Replace("\"", ""));
 
-            //int refDate = Int32.Parse(split[0].Replace("\"", ""));
-            //string geo = split[1].Replace("\"", "");
-            //string sex = split[2].Replace("\"", "");
-            //var ageGroup = split[3].Replace("\"", "");
-            //var studentResponse = split[4].Replace("\"", "");
-            //var uom = split[5].Replace("\"", "");
-            //int uomId = Int32.Parse(split[6].Replace("\"", ""));
-            //var scalarFactor = split[7].Replace("\"", "");
-            //var vector = split[8].Replace("\"", "");
-            //var coordinate = split[9].Replace("\"", "");
-            //int value = Int32.Parse(split[10].Replace("\"", ""));
-
             Record record = new Record(ID, refDate, geo, sex, ageGroup, studentResponse, uom, uomId, scalarFactor, vector, coordinate, value);
 
             return record;
         }
+
+        public string ToStringCSV()
+        {
+            return ID + ", " +
+                RefDate + ", " +
+                Geo + ", " +
+                Sex + ", " +
+                AgeGroup + ", " +
+                StudentResponse + ", " +
+                Uom + ", " +
+                UomId + ", " +
+                ScalarFactor + ", " +
+                Vector + ", " +
+                Coordinate + ", " +
+                Value;
+        }
     }
 }
+

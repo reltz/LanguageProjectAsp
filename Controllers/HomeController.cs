@@ -20,6 +20,7 @@ namespace LanguageProjectAsp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         static readonly string filePath ="D:\\13100262.csv";
+        public List<Record> recordsFromCsv = new List<Record>();
 
         /// <summary>
         /// Constructor with logger parameter
@@ -65,7 +66,10 @@ namespace LanguageProjectAsp.Controllers
 
         public ViewResult Assignment3()
         {
-            return View(readAllFromCsv());
+            RecordsAndEntries allRecords = new RecordsAndEntries();
+            allRecords.records = readAllFromCsv();
+           // allRecords.entry = new Record(0, 0, "", "", "", "", "", 0, "", "", "", 0);
+            return View(allRecords);
         }
 
         /// <summary>
@@ -93,9 +97,12 @@ namespace LanguageProjectAsp.Controllers
             return fiveRecords;
         }
 
+        /// <summary>
+        /// Read all records from CSV file
+        /// </summary>
+        /// <returns></returns>
        private List<Record> readAllFromCsv()
         {
-            List<Record> allRecords = new List<Record>();
             try
             {
                 using (StreamReader stream = new StreamReader(filePath))
@@ -103,7 +110,7 @@ namespace LanguageProjectAsp.Controllers
                     stream.ReadLine();
                     while (!stream.EndOfStream)
                     {
-                        allRecords.Add(Record.FromCsv(stream.ReadLine()));
+                        recordsFromCsv.Add(Record.FromCsv(stream.ReadLine()));
                     }
                 }
             }
@@ -111,9 +118,22 @@ namespace LanguageProjectAsp.Controllers
             {
                 System.Diagnostics.Debug.WriteLine(e);
             }
-            return allRecords;
+            return recordsFromCsv;
         }
 
+        [HttpPost]
+        public void EntryTransform(Record entry)
+        {
+            this.recordsFromCsv.Add(entry);
+            this.SaveToCsv(entry);
+          }
+
+        public void SaveToCsv(Record entry)
+        {
+            StreamWriter writer = new StreamWriter(filePath, true);
+            writer.WriteLine(entry.ToStringCSV());
+            writer.Close();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
