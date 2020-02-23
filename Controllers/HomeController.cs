@@ -65,7 +65,7 @@ namespace LanguageProjectAsp.Controllers
 
         public ViewResult Assignment3()
         {
-            return View(readFromCsv());
+            return View(readAllFromCsv());
         }
 
         /// <summary>
@@ -93,29 +93,25 @@ namespace LanguageProjectAsp.Controllers
             return fiveRecords;
         }
 
-       private void readAllFromCsv()
+       private List<Record> readAllFromCsv()
         {
-            //try
-            //{
-            //    using(StreamReader stream = new StreamReader(filePath))
-            //    {
-            //        List<Record> allRecords = new List<Record>();
-
-            //        stream.ReadLine();
-            //        while(!stream.EndOfStream)
-            //        {
-            //            allRecords.Add(Record.FromCsv(stream.ReadLine()));
-            //        }
-
-            //        for (int i=0; i< allRecords.Count(); i++)
-            //        {
-                        
-            //        }
-            //    }
-            //} catch(err)
-            //{
-
-            //}
+            List<Record> allRecords = new List<Record>();
+            try
+            {
+                using (StreamReader stream = new StreamReader(filePath))
+                {
+                    stream.ReadLine();
+                    while (!stream.EndOfStream)
+                    {
+                        allRecords.Add(Record.FromCsv(stream.ReadLine()));
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
+            return allRecords;
         }
 
 
