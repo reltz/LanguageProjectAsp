@@ -10,5 +10,7 @@ namespace LanguageProjectAsp.Models
         public List<Record> records { get; set; }
 
         public Record entry { get; set; }
+
+        public int idToDelete { get; set; }
     }
 }

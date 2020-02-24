@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using LanguageProjectAsp.Models;
@@ -121,18 +119,63 @@ namespace LanguageProjectAsp.Controllers
             return recordsFromCsv;
         }
 
+        /// <summary>
+        /// method to post the Add new Entry form - saves to file and adds to list object.
+        /// </summary>
+        /// <param name="entry"></param>
         [HttpPost]
         public void EntryTransform(Record entry)
         {
+            System.Diagnostics.Debug.WriteLine(Request.Form.Count);
             this.recordsFromCsv.Add(entry);
             this.SaveToCsv(entry);
-          }
+         }
 
+        /// <summary>
+        /// Method that saves the entry to the csv file
+        /// </summary>
+        /// <param name="entry"></param>
         public void SaveToCsv(Record entry)
         {
             StreamWriter writer = new StreamWriter(filePath, true);
             writer.WriteLine(entry.ToStringCSV());
             writer.Close();
+        }
+
+        [HttpPost]
+         public void DeleteEntry()
+        {
+            string tempFile = "D:\\13100262.csv-copy.csv";
+            StreamWriter sw = System.IO.File.CreateText(tempFile);
+           
+            string stringId = String.Format("{0}", Request.Form["idToDelete"]);
+           
+            int idToDelete = Int32.Parse(stringId);
+            System.Diagnostics.Debug.WriteLine("called with id "+ idToDelete);
+
+            using (StreamReader stream = new StreamReader(filePath))
+            {
+                while (!stream.EndOfStream)
+                {
+                    string csvRow = stream.ReadLine();
+                    string csvRowId = csvRow.Split(',')[0].Replace("\"", "");
+
+                    if (csvRowId.Equals(idToDelete.ToString()))
+                    {
+                        Console.WriteLine(csvRowId);
+                    }
+                    else
+                    {
+                        sw.WriteLine(csvRow);
+                        sw.Flush();
+                    }
+                }
+            }
+
+            sw.Close();
+            this.readAllFromCsv();
+            System.IO.File.Delete(filePath);
+            System.IO.File.Move(tempFile, filePath);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

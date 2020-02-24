@@ -8,7 +8,6 @@
 <h2 class="border-bottom"> Records </h2>
 <div class="container">
     <button class="btn-dark mb-2" data-toggle="modal" data-target=".add-new-entry">Add new entry</button>
-    <form id="table" runat="server">
         <table class="table table-striped table-dark">
             <tr>
                 <th scope="col">ID</th>
@@ -36,12 +35,16 @@
                             </td>
                         }
                         <td><button class="btn-secondary">Edit</button></td>
-                        <td><button class="btn-secondary">Delete</button></td>
-                    </tr>
+                        <td>
+                            <form method="post" runat="server" asp-action="DeleteEntry">
+                                <input name="idToDelete" asp-for="idToDelete" value="@element.ID" style="display: block;" />
+                                <button type="submit" class="btn-secondary">Delete</button>
+                             </form>
+                        </td>
+                </tr>
                 }
             </tbody>
         </table>
-    </form>
     <button class="btn-dark" data-toggle="modal" data-target=".add-new-entry">Add new entry</button>
 </div>
 
@@ -105,20 +108,3 @@
     </div>
 </div>
 
-@*Edit modal*@
-<div class="modal fade" id="update">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title"> Edit entry</div>
-            </div>
-            <div class="modal-body">
-                THIS IS A TEST
-            </div>
-            <div class="modal-footer">
-                <button class="btn-light" data-dismiss="modal">Cancel</button>
-                <button class="btn-dark">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
