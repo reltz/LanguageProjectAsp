@@ -37,7 +37,7 @@
                         <td><button class="btn-secondary">Edit</button></td>
                         <td>
                             <form method="post" runat="server" asp-action="DeleteEntry">
-                                <input name="idToDelete" asp-for="idToDelete" value="@element.ID" style="display: block;" />
+                                <input name="idToDelete" asp-for="idToDelete" value="@element.ID" style="display: none;" />
                                 <button type="submit" class="btn-secondary">Delete</button>
                              </form>
                         </td>

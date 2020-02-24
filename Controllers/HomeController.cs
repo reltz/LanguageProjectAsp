@@ -18,7 +18,7 @@ namespace LanguageProjectAsp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         static readonly string filePath ="D:\\13100262.csv";
-        public List<Record> recordsFromCsv = new List<Record>();
+        public static List<Record> recordsFromCsv = new List<Record>();
 
         /// <summary>
         /// Constructor with logger parameter
@@ -105,6 +105,8 @@ namespace LanguageProjectAsp.Controllers
             {
                 using (StreamReader stream = new StreamReader(filePath))
                 {
+                    //clear list to prevent duplications in the UI
+                    recordsFromCsv = new List<Record>();
                     stream.ReadLine();
                     while (!stream.EndOfStream)
                     {
@@ -126,8 +128,9 @@ namespace LanguageProjectAsp.Controllers
         [HttpPost]
         public void EntryTransform(Record entry)
         {
-            System.Diagnostics.Debug.WriteLine(Request.Form.Count);
-            this.recordsFromCsv.Add(entry);
+            int newId = recordsFromCsv[recordsFromCsv.Count - 1].ID + 1;
+            entry.ID = newId;
+            recordsFromCsv.Add(entry);
             this.SaveToCsv(entry);
          }
 
@@ -147,11 +150,11 @@ namespace LanguageProjectAsp.Controllers
         {
             string tempFile = "D:\\13100262.csv-copy.csv";
             StreamWriter sw = System.IO.File.CreateText(tempFile);
-           
+
             string stringId = String.Format("{0}", Request.Form["idToDelete"]);
-           
+
             int idToDelete = Int32.Parse(stringId);
-            System.Diagnostics.Debug.WriteLine("called with id "+ idToDelete);
+            System.Diagnostics.Debug.WriteLine("called with id " + idToDelete);
 
             using (StreamReader stream = new StreamReader(filePath))
             {
