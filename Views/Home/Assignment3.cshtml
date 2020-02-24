@@ -56,53 +56,55 @@
             <div class="modal-header">
                 <div class="modal-title"> Add new entry</div>
             </div>
-               <form id="new-entry" method="post" runat="server" asp-action="EntryTransform">
-                <div class="form-group">
+            <form id="new-entry" method="post" runat="server" asp-action="EntryTransform">
+                <div class="form-group m-4">
                     <label>Ref Date</label>
                     <input class="form-control" name="refDate" type="number" asp-for="entry.RefDate" />
                 </div>
-                <div class="form-group">
+                <div class="form-group m-4">
                     <label>GEO</label>
                     <input class="form-control" asp-for="entry.Geo" name="geo" type="text" />
                 </div>
-                <div class="form-group">
+                <div class="form-group m-4">
                     <label>Sex</label>
                     <input class="form-control" asp-for="entry.Sex" name="sex" type="text" />
                 </div>
-                <div class="form-group">
+                <div class="form-group m-4">
                     <label>Age group</label>
                     <input class="form-control" asp-for="entry.AgeGroup" name="ageGroup" type="text" />
                 </div>
-                <div class="form-group">
+                <div class="form-group m-4">
                     <label>Student Response</label>
-                    <input class="form-control" name="studentResponse" type="text" asp-for="entry.StudentResponse"/>
+                    <input class="form-control" name="studentResponse" type="text" asp-for="entry.StudentResponse" />
                 </div>
-                <div class="form-group">
+                <div class="form-group m-4">
                     <label>UOM</label>
-                    <input class="form-control" name="uom" type="text" asp-for="entry.Uom"/>
+                    <input class="form-control" name="uom" type="text" asp-for="entry.Uom" />
                 </div>
-                <div class="form-group">
+                <div class="form-group m-4">
                     <label>UOM ID</label>
                     <input class="form-control" name="uomId" type="number" asp-for="entry.UomId" />
                 </div>
-                <div class="form-group">
+                <div class="form-group m-4">
                     <label>Scalar Factor</label>
                     <input class="form-control" name="scalarFactor" type="text" asp-for="entry.ScalarFactor" />
                 </div>
-                <div class="form-group">
+                <div class="form-group m-4">
                     <label>Vector</label>
                     <input class="form-control" name="vector" type="text" asp-for="entry.Vector" />
                 </div>
-                <div class="form-group">
+                <div class="form-group m-4">
                     <label>Coordinate</label>
                     <input class="form-control" name="coordinate" type="text" asp-for="entry.Coordinate" />
                 </div>
-                <div class="form-group">
+                <div class="form-group m-4">
                     <label>Value</label>
-                    <input class="form-control" name="value" type="number"  asp-for="entry.Value"/>
+                    <input class="form-control" name="value" type="number" asp-for="entry.Value" />
                 </div>
-                <button type="submit" class="btn btn-secondary">Save</button>
-                <button class="btn btn-light" data-dismiss="modal">Cancel</button>
+                <div class="mb-4">
+                    <button type="submit" class="btn btn-secondary ml-4">Save</button>
+                    <button class="btn btn-light" data-dismiss="modal">Cancel</button>
+                </div>
             </form>
         </div>
     </div>
