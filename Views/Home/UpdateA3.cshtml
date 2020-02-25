@@ -1,0 +1,84 @@
+﻿@model LanguageProjectAsp.Models.Record
+
+@{
+    ViewData["Title"] = "UpdateA3";
+}
+
+<h1>UpdateA3</h1>
+
+<h4>Record</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" runat="server" asp-action="UpdateA3" name="editForm" asp-for="editForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="ID" class="form-control" style="display: none;" />
+                <span asp-validation-for="ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RefDate" class="control-label"></label>
+                <input asp-for="RefDate" class="form-control" />
+                <span asp-validation-for="RefDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Geo" class="control-label"></label>
+                <input asp-for="Geo" class="form-control" />
+                <span asp-validation-for="Geo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sex" class="control-label"></label>
+                <input asp-for="Sex" class="form-control" />
+                <span asp-validation-for="Sex" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgeGroup" class="control-label"></label>
+                <input asp-for="AgeGroup" class="form-control" />
+                <span asp-validation-for="AgeGroup" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StudentResponse" class="control-label"></label>
+                <input asp-for="StudentResponse" class="form-control" />
+                <span asp-validation-for="StudentResponse" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Uom" class="control-label"></label>
+                <input asp-for="Uom" class="form-control" />
+                <span asp-validation-for="Uom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UomId" class="control-label"></label>
+                <input asp-for="UomId" class="form-control" />
+                <span asp-validation-for="UomId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ScalarFactor" class="control-label"></label>
+                <input asp-for="ScalarFactor" class="form-control" />
+                <span asp-validation-for="ScalarFactor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vector" class="control-label"></label>
+                <input asp-for="Vector" class="form-control" />
+                <span asp-validation-for="Vector" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coordinate" class="control-label"></label>
+                <input asp-for="Coordinate" class="form-control" />
+                <span asp-validation-for="Coordinate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Value" class="control-label"></label>
+                <input asp-for="Value" class="form-control" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Assignment3">Back to List</a>
+</div>
+

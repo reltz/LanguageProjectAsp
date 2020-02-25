@@ -66,7 +66,6 @@ namespace LanguageProjectAsp.Controllers
         {
             RecordsAndEntries allRecords = new RecordsAndEntries();
             allRecords.records = readAllFromCsv();
-           // allRecords.entry = new Record(0, 0, "", "", "", "", "", 0, "", "", "", 0);
             return View(allRecords);
         }
 
@@ -180,6 +179,63 @@ namespace LanguageProjectAsp.Controllers
             System.IO.File.Delete(filePath);
             System.IO.File.Move(tempFile, filePath);
         }
+
+        /// <summary>
+        /// Method that navigates to the Update view and passes a Record object to it
+        /// </summary>
+        /// <returns>View</returns>
+        [HttpPost]
+        public ViewResult UpdateRecord()
+        {
+            string stringId = String.Format("{0}", Request.Form["idToUpdate"]);
+            int idToUpdate = Int32.Parse(stringId);
+            
+            Debug.WriteLine("id received was " + idToUpdate);
+            Record editRecord = new Record();
+            
+            editRecord = recordsFromCsv.Find(obj => obj.ID == idToUpdate);
+            Debug.WriteLine("found in List was " + editRecord);
+            
+            return View("UpdateA3", editRecord);
+        }
+
+        /// <summary>
+        /// Method that actualy updates the entry changes to the csv file
+        /// </summary>
+        /// <param name="entry"></param>
+        [HttpPost]
+        public void UpdateA3(Record editRecord)
+        {
+            Debug.WriteLine("Inside method UpdateA3 with "+ editRecord.ID);
+
+            string tempFile = "D:\\13100262.csv-copy.csv";
+            StreamWriter sw = System.IO.File.CreateText(tempFile);
+
+            using (StreamReader stream = new StreamReader(filePath))
+            {
+
+                while (!stream.EndOfStream)
+                {
+                    string csvRow = stream.ReadLine();
+                    string csvRowId = csvRow.Split(',')[0];
+
+                    if (csvRowId.Equals(editRecord.ID.ToString()))
+                    {
+
+                        sw.WriteLine(editRecord.ToStringCSV());
+                        sw.Flush();
+                    }
+                    else
+                    {
+                        sw.WriteLine(csvRow);
+                        sw.Flush();
+                    }
+                }
+            }
+            sw.Close();
+            System.IO.File.Delete(filePath);
+            System.IO.File.Move(tempFile, filePath);
+          }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

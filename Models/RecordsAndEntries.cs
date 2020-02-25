@@ -12,5 +12,7 @@ namespace LanguageProjectAsp.Models
         public Record entry { get; set; }
 
         public int idToDelete { get; set; }
+
+        public int idToUpdate { get; set; }
     }
 }
