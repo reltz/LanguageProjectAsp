@@ -62,6 +62,10 @@ namespace LanguageProjectAsp.Controllers
             return View(readFromCsv()); ;
         }
 
+        /// <summary>
+        /// Method that returns the view for assignment 3
+        /// </summary>
+        /// <returns></returns>
         public ViewResult Assignment3()
         {
             RecordsAndEntries allRecords = new RecordsAndEntries();
@@ -73,7 +77,7 @@ namespace LanguageProjectAsp.Controllers
         /// Method that reads the 5 first records from the CSV and creates a list of objects of type Record.
         /// </summary>
         /// <returns>A list of Records</returns>
-        private List<Record> readFromCsv()
+        public List<Record> readFromCsv()
         {
             List<Record> fiveRecords = new List<Record>();
             using (StreamReader stream = new StreamReader(filePath))
@@ -144,6 +148,10 @@ namespace LanguageProjectAsp.Controllers
             writer.Close();
         }
 
+
+        /// <summary>
+        /// Method that receives the ID from the UI view and deletes record from List and file.
+        /// </summary>
         [HttpPost]
          public void DeleteEntry()
         {

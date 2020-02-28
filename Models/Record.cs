@@ -11,6 +11,9 @@ using System.Threading.Tasks;
  */
 namespace LanguageProjectAsp.Models
 {
+    /// <summary>
+    /// Class that defines a record entry object
+    /// </summary>
     public class Record
     {
 
@@ -26,7 +29,22 @@ namespace LanguageProjectAsp.Models
         public string Vector { get; set; }
         public string Coordinate { get; set; }
         public int Value { get; set; }
-        /// Just passed to the constructors the values that are different. In the event of the dataset changing, this has to be adapted to construct based on new variables
+        
+        /// <summary>
+        /// Constructor for Record class
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="refDate"></param>
+        /// <param name="geo"></param>
+        /// <param name="sex"></param>
+        /// <param name="ageGroup"></param>
+        /// <param name="studentResponse"></param>
+        /// <param name="uom"></param>
+        /// <param name="uomId"></param>
+        /// <param name="scalarFactor"></param>
+        /// <param name="vector"></param>
+        /// <param name="coordinate"></param>
+        /// <param name="value"></param>
         public Record(int id, int refDate, string geo, string sex, string ageGroup, string studentResponse, string uom, int uomId, string scalarFactor, string vector, string coordinate, int value)
         {
             ID = id;
@@ -43,6 +61,9 @@ namespace LanguageProjectAsp.Models
             Value = value;
         }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public Record()
         {
             ID = -1;
@@ -59,9 +80,12 @@ namespace LanguageProjectAsp.Models
             Value = -1;
         }
 
-
-
+        
+        /// <summary>
         /// This method parses the csv and creates an object of type Record for each line
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
         public static Record FromCsv(string line)
         {
             var split = line.Split(',');
@@ -86,6 +110,10 @@ namespace LanguageProjectAsp.Models
             return record;
         }
 
+        /// <summary>
+        /// Parse the object to CSV format
+        /// </summary>
+        /// <returns></returns>
         public string ToStringCSV()
         {
             return ID + ", " +

@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace LanguageProjectAsp.Models
 {
+    /// <summary>
+    /// Class that returns the model to the Assignment3 view
+    /// </summary>
     public class RecordsAndEntries
     {
         public List<Record> records { get; set; }

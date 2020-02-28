@@ -8,6 +8,7 @@
 <h2 class="border-bottom"> Records </h2>
 <div class="container">
     <button class="btn-dark mb-2" data-toggle="modal" data-target=".add-new-entry">Add new entry</button>
+    <button class="btn-dark mb-2" asp-action="Assignment3">Reload data</button>
     <table class="table table-striped table-dark">
         <tr>
             <th scope="col">ID</th>
@@ -36,7 +37,7 @@
                     }
                     <td>
                         <form method="post" runat="server" asp-action="UpdateA3">
-                            <input name="idToUpdate" asp-for="idToUpdate" value="@element.ID" style="display: none;"/>
+                            <input name="idToUpdate" asp-for="idToUpdate" value="@element.ID" style="display: none;" />
                             <button class="btn-secondary" asp-action="UpdateRecord">Edit</button>
                         </form>
                     </td>
@@ -51,6 +52,7 @@
         </tbody>
     </table>
     <button class="btn-dark" data-toggle="modal" data-target=".add-new-entry">Add new entry</button>
+    <h1 class="border-bottom">@ViewData["Title"] - Rodrigo Eltz - 040913098</h1>
 </div>
 
 
@@ -59,7 +61,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="modal-title"> Add new entry</div>
+                <div class="modal-title"> Add new entry - Rodrigo Eltz 040913098</div>
+                
             </div>
             <form id="new-entry" method="post" runat="server" asp-action="EntryTransform">
                 <div class="form-group m-4">
@@ -109,6 +112,7 @@
                 <div class="mb-4">
                     <button type="submit" class="btn btn-secondary ml-4">Save</button>
                     <button class="btn btn-light" data-dismiss="modal">Cancel</button>
+                    <p>Rodrigo Eltz 040913098</p>
                 </div>
             </form>
         </div>
