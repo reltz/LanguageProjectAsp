@@ -17,7 +17,7 @@ namespace LanguageProjectAsp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        static readonly string filePath ="D:\\13100262.csv";
+        //static readonly string filePath ="D:\\13100262.csv";
         public static List<Record> recordsFromCsv = new List<Record>();
 
         /// <summary>
@@ -57,10 +57,10 @@ namespace LanguageProjectAsp.Controllers
         /// Method to retrieve the ViewResult for the Exercise 3 page
         /// </summary>
         /// <returns>a ViewResult</returns>
-        public ViewResult Exercise3()
-        {
-            return View(readFromCsv()); ;
-        }
+        //public ViewResult Exercise3()
+        //{
+        //    return View(readFromCsv()); ;
+        //}
 
         /// <summary>
         /// Method that returns the view for assignment 3
@@ -68,8 +68,9 @@ namespace LanguageProjectAsp.Controllers
         /// <returns></returns>
         public ViewResult Assignment3()
         {
+            this.readAllFromCsv();
             RecordsAndEntries allRecords = new RecordsAndEntries();
-            allRecords.records = readAllFromCsv();
+            allRecords.records = recordsFromCsv;
             return View(allRecords);
         }
 
@@ -77,51 +78,42 @@ namespace LanguageProjectAsp.Controllers
         /// Method that reads the 5 first records from the CSV and creates a list of objects of type Record.
         /// </summary>
         /// <returns>A list of Records</returns>
-        public List<Record> readFromCsv()
-        {
-            List<Record> fiveRecords = new List<Record>();
-            using (StreamReader stream = new StreamReader(filePath))
-            {
-                for (int i = 0; i <= 5; i++)
-                {
-                    if (i == 0)
-                    {
-                        stream.ReadLine();
-                    }
-                    else
-                    {
-                        fiveRecords.Add(Record.FromCsv(stream.ReadLine()));
-                    }
-                }
-            }
-            System.Diagnostics.Debug.WriteLine(fiveRecords);
-            return fiveRecords;
-        }
+        //public List<Record> readFromCsv()
+        //{
+        //    List<Record> fiveRecords = new List<Record>();
+        //    using (StreamReader stream = new StreamReader(filePath))
+        //    {
+        //        for (int i = 0; i <= 5; i++)
+        //        {
+        //            if (i == 0)
+        //            {
+        //                stream.ReadLine();
+        //            }
+        //            else
+        //            {
+        //                fiveRecords.Add(Record.FromCsv(stream.ReadLine()));
+        //            }
+        //        }
+        //    }
+        //    System.Diagnostics.Debug.WriteLine(fiveRecords);
+        //    return fiveRecords;
+        //}
 
         /// <summary>
         /// Read all records from CSV file
         /// </summary>
         /// <returns></returns>
-       private List<Record> readAllFromCsv()
+        /// Rodrigo Eltz 040913098
+       private void readAllFromCsv()
         {
+            CsvController csvHandler = new CsvController();
             try
             {
-                using (StreamReader stream = new StreamReader(filePath))
-                {
-                    //clear list to prevent duplications in the UI
-                    recordsFromCsv = new List<Record>();
-                    stream.ReadLine();
-                    while (!stream.EndOfStream)
-                    {
-                        recordsFromCsv.Add(Record.FromCsv(stream.ReadLine()));
-                    }
-                }
-            }
-            catch (Exception e)
+                recordsFromCsv = csvHandler.readAllFromCsv();
+            } catch( Exception e)
             {
-                System.Diagnostics.Debug.WriteLine(e);
+                Debug.WriteLine(e);
             }
-            return recordsFromCsv;
         }
 
         /// <summary>
@@ -138,54 +130,41 @@ namespace LanguageProjectAsp.Controllers
          }
 
         /// <summary>
-        /// Method that saves the entry to the csv file
+        /// Method that calls the CsvHelper controller to save an entry
         /// </summary>
         /// <param name="entry"></param>
         public void SaveToCsv(Record entry)
         {
-            StreamWriter writer = new StreamWriter(filePath, true);
-            writer.WriteLine(entry.ToStringCSV());
-            writer.Close();
+            CsvController csvHelper = new CsvController();
+            try
+            {
+                csvHelper.SaveToCsv(entry);
+            } catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
         }
 
 
         /// <summary>
-        /// Method that receives the ID from the UI view and deletes record from List and file.
+        /// Method that receives the ID from the UI view and calls the CsvHelper.
+        /// Rodrigo Eltz 040913098
         /// </summary>
         [HttpPost]
          public void DeleteEntry()
         {
-            string tempFile = "D:\\13100262.csv-copy.csv";
-            StreamWriter sw = System.IO.File.CreateText(tempFile);
-
             string stringId = String.Format("{0}", Request.Form["idToDelete"]);
-
             int idToDelete = Int32.Parse(stringId);
             System.Diagnostics.Debug.WriteLine("called with id " + idToDelete);
+            CsvController csvHelper = new CsvController();
 
-            using (StreamReader stream = new StreamReader(filePath))
+            try
             {
-                while (!stream.EndOfStream)
-                {
-                    string csvRow = stream.ReadLine();
-                    string csvRowId = csvRow.Split(',')[0].Replace("\"", "");
-
-                    if (csvRowId.Equals(idToDelete.ToString()))
-                    {
-                        Console.WriteLine(csvRowId);
-                    }
-                    else
-                    {
-                        sw.WriteLine(csvRow);
-                        sw.Flush();
-                    }
-                }
+                csvHelper.DeleteEntry(idToDelete);
+            } catch (Exception e)
+            {
+                Debug.WriteLine(e);
             }
-
-            sw.Close();
-            this.readAllFromCsv();
-            System.IO.File.Delete(filePath);
-            System.IO.File.Move(tempFile, filePath);
         }
 
         /// <summary>
@@ -210,40 +189,21 @@ namespace LanguageProjectAsp.Controllers
         /// <summary>
         /// Method that actualy updates the entry changes to the csv file
         /// </summary>
-        /// <param name="entry"></param>
+        /// <param name="editRecord"></param>
         [HttpPost]
         public void UpdateA3(Record editRecord)
         {
             Debug.WriteLine("Inside method UpdateA3 with "+ editRecord.ID);
+            CsvController csvHelper = new CsvController();
 
-            string tempFile = "D:\\13100262.csv-copy.csv";
-            StreamWriter sw = System.IO.File.CreateText(tempFile);
-
-            using (StreamReader stream = new StreamReader(filePath))
+            try
             {
-
-                while (!stream.EndOfStream)
-                {
-                    string csvRow = stream.ReadLine();
-                    string csvRowId = csvRow.Split(',')[0];
-
-                    if (csvRowId.Equals(editRecord.ID.ToString()))
-                    {
-
-                        sw.WriteLine(editRecord.ToStringCSV());
-                        sw.Flush();
-                    }
-                    else
-                    {
-                        sw.WriteLine(csvRow);
-                        sw.Flush();
-                    }
-                }
+                csvHelper.UpdateA3(editRecord);
+            } catch(Exception e)
+            {
+                Debug.WriteLine(e);
             }
-            sw.Close();
-            System.IO.File.Delete(filePath);
-            System.IO.File.Move(tempFile, filePath);
-          }
+         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
