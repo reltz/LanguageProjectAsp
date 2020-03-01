@@ -104,7 +104,7 @@ namespace LanguageProjectAsp.Controllers
         /// </summary>
         /// <returns></returns>
         /// Rodrigo Eltz 040913098
-       private void readAllFromCsv()
+       public void readAllFromCsv()
         {
             CsvController csvHandler = new CsvController();
             try
