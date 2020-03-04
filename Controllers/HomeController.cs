@@ -18,7 +18,7 @@ namespace LanguageProjectAsp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         //static readonly string filePath ="D:\\13100262.csv";
-        public static List<Record> recordsFromCsv = new List<Record>();
+        public static List<Record> allRecords = new List<Record>();
 
         /// <summary>
         /// Constructor with logger parameter
@@ -48,9 +48,9 @@ namespace LanguageProjectAsp.Controllers
         {
             //this.readAllFromCsv();
             this.readAllFromDB();
-            RecordsAndEntries allRecords = new RecordsAndEntries();
-            allRecords.records = recordsFromCsv;
-            return View(allRecords);
+            RecordsAndEntries recordsAndEntries = new RecordsAndEntries();
+            recordsAndEntries.records = allRecords;
+            return View(recordsAndEntries);
         }
 
         /// <summary>
@@ -58,12 +58,12 @@ namespace LanguageProjectAsp.Controllers
         /// </summary>
         /// <returns></returns>
         /// Rodrigo Eltz 040913098
-        public void readAllFromCsv()
+        private void readAllFromCsv()
         {
             CsvController csvHandler = new CsvController();
             try
             {
-                recordsFromCsv = csvHandler.readAllFromCsv();
+                allRecords = csvHandler.readAllFromCsv();
             }
             catch (Exception e)
             {
@@ -71,12 +71,12 @@ namespace LanguageProjectAsp.Controllers
             }
         }
 
-        public void readAllFromDB()
+        private void readAllFromDB()
         {
             DatabaseController controller = new DatabaseController();
             try
             {
-                recordsFromCsv = controller.readAll();
+                allRecords = controller.readAll();
             }
             catch (Exception e)
             {
@@ -91,17 +91,18 @@ namespace LanguageProjectAsp.Controllers
         [HttpPost]
         public void EntryTransform(Record entry)
         {
-            int newId = recordsFromCsv[recordsFromCsv.Count - 1].ID + 1;
+            int newId = allRecords[allRecords.Count - 1].ID + 1;
             entry.ID = newId;
-            recordsFromCsv.Add(entry);
-            this.SaveToCsv(entry);
+            allRecords.Add(entry);
+            //this.SaveToCsv(entry);
+            this.saveToDb(entry);
         }
 
         ///// <summary>
         ///// Method that calls the CsvHelper controller to save an entry
         ///// </summary>
         ///// <param name="entry"></param>
-        public void SaveToCsv(Record entry)
+        private void SaveToCsv(Record entry)
         {
             CsvController csvHelper = new CsvController();
             try
@@ -115,6 +116,19 @@ namespace LanguageProjectAsp.Controllers
         }
 
 
+        private void saveToDb(Record entry)
+        {
+            DatabaseController db = new DatabaseController();
+
+            try
+            {
+                db.addEntry(entry);
+            } catch(Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+        }
+
         /// <summary>
         /// Method that receives the ID from the UI view and calls the CsvHelper.
         /// Rodrigo Eltz 040913098
@@ -126,9 +140,11 @@ namespace LanguageProjectAsp.Controllers
             int idToDelete = Int32.Parse(stringId);
             System.Diagnostics.Debug.WriteLine("called with id " + idToDelete);
             //CsvController csvHelper = new CsvController();
+            DatabaseController dbController = new DatabaseController();
 
             try
             {
+                dbController.deleteEntry(idToDelete);
                 //csvHelper.DeleteEntry(idToDelete);
             } catch (Exception e)
             {
@@ -149,7 +165,7 @@ namespace LanguageProjectAsp.Controllers
             Debug.WriteLine("id received was " + idToUpdate);
             Record editRecord = new Record();
             
-            editRecord = recordsFromCsv.Find(obj => obj.ID == idToUpdate);
+            editRecord = allRecords.Find(obj => obj.ID == idToUpdate);
             Debug.WriteLine("found in List was " + editRecord);
             
             return View("UpdateA3", editRecord);
@@ -164,10 +180,12 @@ namespace LanguageProjectAsp.Controllers
         {
             Debug.WriteLine("Inside method UpdateA3 with "+ editRecord.ID);
             //CsvController csvHelper = new CsvController();
+            DatabaseController dbController = new DatabaseController();
 
             try
             {
                 //csvHelper.UpdateA3(editRecord);
+                dbController.updateEntry(editRecord);
             } catch(Exception e)
             {
                 Debug.WriteLine(e);

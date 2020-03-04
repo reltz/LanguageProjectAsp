@@ -27,6 +27,40 @@ namespace LanguageProjectAsp.Controllers
 
             return allRecords;
         }
-    }
 
+        public void deleteEntry(int id)
+        {
+            //Record entryToDelete = db.Records.Where(r => r.ID == id).FirstOrDefault();
+            Record entryToDelete = db.Records.Find(id);
+            try
+            {
+                db.Records.Remove(entryToDelete);
+            } catch ( Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+        }
+
+        public void addEntry(Record entry)
+        {
+            try
+            {
+                db.Records.Add(entry);
+            } catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+        }
+
+        public void updateEntry(Record entry)
+        {
+            try
+            {
+                db.Records.Update(entry);
+            } catch(Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+        }
+    }
 }
