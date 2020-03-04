@@ -6,8 +6,8 @@ using Microsoft.Extensions.Logging;
 using LanguageProjectAsp.Models;
 using System.IO;
 /** Main application controller
- * @Author Rodrigo Eltz
- */
+* @Author Rodrigo Eltz
+*/
 
 namespace LanguageProjectAsp.Controllers
 {
@@ -39,28 +39,6 @@ namespace LanguageProjectAsp.Controllers
             return View();
         }
 
-        /// <summary>
-        /// Method to retrieve the ViewResult with the view Exercise1 page. 
-        /// </summary>
-        /// <returns>a ViewResult</returns>
-        public ViewResult Exercise1()
-        {
-            // Names of all the columns
-            var columns = new List<string> { "REF_DATE", "GEO", "DGUID", "Sex", "Age group",
-                "Student response", "UOM", "UOM_ID", "SCALAR_FACTOR", "SCALAR_ID", "VECTOR", "COORDINATE",
-                "VALUE", "STATUS", "SYMBOL", "TERMINATED", "DECIMALS"};
-
-            return View(columns);
-        }
-
-        /// <summary>
-        /// Method to retrieve the ViewResult for the Exercise 3 page
-        /// </summary>
-        /// <returns>a ViewResult</returns>
-        //public ViewResult Exercise3()
-        //{
-        //    return View(readFromCsv()); ;
-        //}
 
         /// <summary>
         /// Method that returns the view for assignment 3
@@ -68,49 +46,39 @@ namespace LanguageProjectAsp.Controllers
         /// <returns></returns>
         public ViewResult Assignment3()
         {
-            this.readAllFromCsv();
+            //this.readAllFromCsv();
+            this.readAllFromDB();
             RecordsAndEntries allRecords = new RecordsAndEntries();
             allRecords.records = recordsFromCsv;
             return View(allRecords);
         }
 
         /// <summary>
-        /// Method that reads the 5 first records from the CSV and creates a list of objects of type Record.
-        /// </summary>
-        /// <returns>A list of Records</returns>
-        //public List<Record> readFromCsv()
-        //{
-        //    List<Record> fiveRecords = new List<Record>();
-        //    using (StreamReader stream = new StreamReader(filePath))
-        //    {
-        //        for (int i = 0; i <= 5; i++)
-        //        {
-        //            if (i == 0)
-        //            {
-        //                stream.ReadLine();
-        //            }
-        //            else
-        //            {
-        //                fiveRecords.Add(Record.FromCsv(stream.ReadLine()));
-        //            }
-        //        }
-        //    }
-        //    System.Diagnostics.Debug.WriteLine(fiveRecords);
-        //    return fiveRecords;
-        //}
-
-        /// <summary>
         /// Read all records from CSV file
         /// </summary>
         /// <returns></returns>
         /// Rodrigo Eltz 040913098
-       public void readAllFromCsv()
+        public void readAllFromCsv()
         {
             CsvController csvHandler = new CsvController();
             try
             {
                 recordsFromCsv = csvHandler.readAllFromCsv();
-            } catch( Exception e)
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+        }
+
+        public void readAllFromDB()
+        {
+            DatabaseController controller = new DatabaseController();
+            try
+            {
+                recordsFromCsv = controller.readAll();
+            }
+            catch (Exception e)
             {
                 Debug.WriteLine(e);
             }
@@ -127,19 +95,20 @@ namespace LanguageProjectAsp.Controllers
             entry.ID = newId;
             recordsFromCsv.Add(entry);
             this.SaveToCsv(entry);
-         }
+        }
 
-        /// <summary>
-        /// Method that calls the CsvHelper controller to save an entry
-        /// </summary>
-        /// <param name="entry"></param>
+        ///// <summary>
+        ///// Method that calls the CsvHelper controller to save an entry
+        ///// </summary>
+        ///// <param name="entry"></param>
         public void SaveToCsv(Record entry)
         {
             CsvController csvHelper = new CsvController();
             try
             {
                 csvHelper.SaveToCsv(entry);
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Debug.WriteLine(e);
             }
@@ -156,11 +125,11 @@ namespace LanguageProjectAsp.Controllers
             string stringId = String.Format("{0}", Request.Form["idToDelete"]);
             int idToDelete = Int32.Parse(stringId);
             System.Diagnostics.Debug.WriteLine("called with id " + idToDelete);
-            CsvController csvHelper = new CsvController();
+            //CsvController csvHelper = new CsvController();
 
             try
             {
-                csvHelper.DeleteEntry(idToDelete);
+                //csvHelper.DeleteEntry(idToDelete);
             } catch (Exception e)
             {
                 Debug.WriteLine(e);
@@ -194,11 +163,11 @@ namespace LanguageProjectAsp.Controllers
         public void UpdateA3(Record editRecord)
         {
             Debug.WriteLine("Inside method UpdateA3 with "+ editRecord.ID);
-            CsvController csvHelper = new CsvController();
+            //CsvController csvHelper = new CsvController();
 
             try
             {
-                csvHelper.UpdateA3(editRecord);
+                //csvHelper.UpdateA3(editRecord);
             } catch(Exception e)
             {
                 Debug.WriteLine(e);

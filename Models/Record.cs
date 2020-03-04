@@ -1,6 +1,8 @@
 ﻿using CsvHelper;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,19 +19,40 @@ namespace LanguageProjectAsp.Models
     public class Record
     {
 
+        [Key]
+        [Column("ID")]
         public int ID { get; set; }
-        public int RefDate { get; set; }
+        [Column("REF_DATE")]
+        public int? RefDate { get; set; }
+        [Column("GEO")]
+        [StringLength(30)]
         public string Geo { get; set; }
+        [StringLength(30)]
         public string Sex { get; set; }
+        [Column("Age_Group")]
+        [StringLength(30)]
         public string AgeGroup { get; set; }
+        [Column("Student_response")]
+        [StringLength(30)]
         public string StudentResponse { get; set; }
+        [Column("UOM")]
+        [StringLength(30)]
         public string Uom { get; set; }
-        public int UomId { get; set; }
+        [Column("UOM_ID")]
+        public int? UomId { get; set; }
+        [Column("SCALAR_FACTOR")]
+        [StringLength(30)]
         public string ScalarFactor { get; set; }
+        [Column("VECTOR")]
+        [StringLength(30)]
         public string Vector { get; set; }
+        [Column("COORDINATE")]
+        [StringLength(30)]
         public string Coordinate { get; set; }
-        public int Value { get; set; }
-        
+       
+        [Column("Register_value")]
+        public int? Value { get; set; }
+
         /// <summary>
         /// Constructor for Record class
         /// </summary>
@@ -80,7 +103,7 @@ namespace LanguageProjectAsp.Models
             Value = -1;
         }
 
-        
+
         /// <summary>
         /// This method parses the csv and creates an object of type Record for each line
         /// </summary>

@@ -12,7 +12,7 @@ namespace LanguageProjectAsp.Controllers
     public class CsvController : Controller
     {
         private static readonly string filePath = "D:\\13100262.csv";
-        
+
         public List<Record> readAllFromCsv()
         {
             List<Record> recordsFromCsv = new List<Record>();
@@ -86,7 +86,7 @@ namespace LanguageProjectAsp.Controllers
         /// Method that actualy updates the entry changes to the csv file
         /// </summary>
         /// <param name="entry"></param>
-         public void UpdateA3(Record editRecord)
+        public void UpdateA3(Record editRecord)
         {
             Debug.WriteLine("Inside method UpdateA3 with " + editRecord.ID);
 
