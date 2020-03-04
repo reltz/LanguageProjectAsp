@@ -44,12 +44,11 @@ namespace LanguageProjectAsp.Controllers
         public void deleteEntry(int id)
         {
             //Record entryToDelete = db.Records.Where(r => r.ID == id).FirstOrDefault();
-            Record entryToDelete = db.Records.Find(id);
             try
             {
+                Record entryToDelete = db.Records.Find(id);
                 db.Records.Remove(entryToDelete);
                 db.SaveChanges();
-                db.Dispose();
             } catch ( Exception e)
             {
                 Debug.WriteLine(e);
@@ -67,7 +66,6 @@ namespace LanguageProjectAsp.Controllers
             {
                 db.Records.Add(entry);
                 db.SaveChanges();
-                db.Dispose();
             } catch (Exception e)
             {
                 Debug.WriteLine(e);
@@ -84,7 +82,6 @@ namespace LanguageProjectAsp.Controllers
             {
                 db.Records.Update(entry);
                 db.SaveChanges();
-                db.Dispose();
             } catch(Exception e)
             {
                 Debug.WriteLine(e);
