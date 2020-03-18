@@ -20,6 +20,5 @@ namespace LanguageProjectAsp.Controllers
         public abstract void addEntry(Record entry);
 
         public abstract void updateEntry(Record entry);
-        
     }
 }
