@@ -86,6 +86,7 @@ namespace LanguageProjectAsp.Controllers
 
         /// <summary>
         /// method to post the Add new Entry form - saves to file and adds to list object.
+        /// Rodrigo Eltz - 040913098
         /// </summary>
         /// <param name="entry"></param>
         [HttpPost]
@@ -115,7 +116,11 @@ namespace LanguageProjectAsp.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Method that instantiates the DatabaseController and call the addEntry method 
+        /// Rodrigo Eltz
+        /// </summary>
+        /// <param name="entry"></param>
         private void saveToDb(Record entry)
         {
             DatabaseController db = new DatabaseController();

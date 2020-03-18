@@ -17,7 +17,7 @@ namespace LanguageProjectAsp.Controllers
         /// Instance of DatabaseContext
         /// </summary>
         DatabaseContext db = new DatabaseContext();
-        
+
         /// <summary>
         /// Retrieves all entries from the database, table Records.
         /// </summary>
