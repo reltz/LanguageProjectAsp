@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace LanguageProjectAsp.Controllers
 {
-    public class DatabaseController : Controller
+    public class DatabaseController : BaseDataController
     {
         /// <summary>
         /// Instance of DatabaseContext
@@ -22,7 +22,7 @@ namespace LanguageProjectAsp.Controllers
         /// Retrieves all entries from the database, table Records.
         /// </summary>
         /// <returns></returns>
-        public List<Record> readAll()
+        public override List<Record> readAll()
         {
             List<Record> allRecords = new List<Record>();
             try
@@ -41,7 +41,7 @@ namespace LanguageProjectAsp.Controllers
         /// Deletes record from database, table Records, from ID passed
         /// </summary>
         /// <param name="id"></param>
-        public void deleteEntry(int id)
+        public override void deleteEntry(int id)
         {
             //Record entryToDelete = db.Records.Where(r => r.ID == id).FirstOrDefault();
             try
@@ -59,7 +59,7 @@ namespace LanguageProjectAsp.Controllers
         /// Adds new entry to the database, table Records.
         /// </summary>
         /// <param name="entry"></param>
-        public void addEntry(Record entry)
+        public override void addEntry(Record entry)
         {
             Debug.WriteLine(entry);
             try
@@ -76,7 +76,7 @@ namespace LanguageProjectAsp.Controllers
         /// Updates entry in the database, in the table Records.
         /// </summary>
         /// <param name="entry"></param>
-        public void updateEntry(Record entry)
+        public override void updateEntry(Record entry)
         {
             try
             {

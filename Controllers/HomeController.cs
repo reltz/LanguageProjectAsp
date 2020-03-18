@@ -41,13 +41,25 @@ namespace LanguageProjectAsp.Controllers
 
 
         /// <summary>
-        /// Method that returns the view for assignment 3
+        /// Method that returns the view for Assignment 4 with DB connection
         /// </summary>
         /// <returns></returns>
-        public ViewResult Assignment3()
+        public ViewResult Assign4DB()
         {
             //this.readAllFromCsv();
             this.readAllFromDB();
+            RecordsAndEntries recordsAndEntries = new RecordsAndEntries();
+            recordsAndEntries.records = allRecords;
+            return View(recordsAndEntries);
+        }
+
+        /// <summary>
+        /// Method that returns the view for Assignment 4 with CSV connection
+        /// </summary>
+        /// <returns></returns>
+        public ViewResult Assign4CSV()
+        {
+            this.readAllFromCsv();
             RecordsAndEntries recordsAndEntries = new RecordsAndEntries();
             recordsAndEntries.records = allRecords;
             return View(recordsAndEntries);
@@ -63,7 +75,7 @@ namespace LanguageProjectAsp.Controllers
             CsvController csvHandler = new CsvController();
             try
             {
-                allRecords = csvHandler.readAllFromCsv();
+                allRecords = csvHandler.readAll();
             }
             catch (Exception e)
             {
@@ -90,14 +102,29 @@ namespace LanguageProjectAsp.Controllers
         /// </summary>
         /// <param name="entry"></param>
         [HttpPost]
-        public void EntryTransform(Record entry)
+        public void addRecordDB(Record entry)
         {
             int newId = allRecords[allRecords.Count - 1].ID + 1;
             entry.ID = newId;
             allRecords.Add(entry);
-            //this.SaveToCsv(entry);
             this.saveToDb(entry);
         }
+
+
+        /// <summary>
+        /// method to post the Add new Entry form - saves to file and adds to list object.
+        /// Rodrigo Eltz - 040913098
+        /// </summary>
+        /// <param name="entry"></param>
+        [HttpPost]
+        public void addRecordCSV(Record entry)
+        {
+            int newId = allRecords[allRecords.Count - 1].ID + 1;
+            entry.ID = newId;
+            allRecords.Add(entry);
+            this.SaveToCsv(entry);
+        }
+
 
         ///// <summary>
         ///// Method that calls the CsvHelper controller to save an entry
@@ -108,7 +135,7 @@ namespace LanguageProjectAsp.Controllers
             CsvController csvHelper = new CsvController();
             try
             {
-                csvHelper.SaveToCsv(entry);
+                csvHelper.addEntry(entry);
             }
             catch (Exception e)
             {
@@ -139,7 +166,7 @@ namespace LanguageProjectAsp.Controllers
         /// Rodrigo Eltz 040913098
         /// </summary>
         [HttpPost]
-         public void DeleteEntry()
+         public void DeleteEntryDB()
         {
             string stringId = String.Format("{0}", Request.Form["idToDelete"]);
             int idToDelete = Int32.Parse(stringId);
@@ -158,11 +185,33 @@ namespace LanguageProjectAsp.Controllers
         }
 
         /// <summary>
+        /// Method that receives the ID from the UI view and calls the CsvHelper.
+        /// Rodrigo Eltz 040913098
+        /// </summary>
+        [HttpPost]
+        public void DeleteEntryCSV()
+        {
+            string stringId = String.Format("{0}", Request.Form["idToDelete"]);
+            int idToDelete = Int32.Parse(stringId);
+            System.Diagnostics.Debug.WriteLine("called with id " + idToDelete);
+            CsvController csvHelper = new CsvController();
+
+            try
+            {
+                csvHelper.deleteEntry(idToDelete);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+        }
+
+        /// <summary>
         /// Method that navigates to the Update view and passes a Record object to it
         /// </summary>
         /// <returns>View</returns>
         [HttpPost]
-        public ViewResult UpdateRecord()
+        public ViewResult UpdateRecordDBPage()
         {
             string stringId = String.Format("{0}", Request.Form["idToUpdate"]);
             int idToUpdate = Int32.Parse(stringId);
@@ -176,26 +225,64 @@ namespace LanguageProjectAsp.Controllers
             return View("UpdateA3", editRecord);
         }
 
+
+        /// <summary>
+        /// Method that navigates to the Update view and passes a Record object to it
+        /// </summary>
+        /// <returns>View</returns>
+        [HttpPost]
+        public ViewResult UpdateRecordCSVPage()
+        {
+            string stringId = String.Format("{0}", Request.Form["idToUpdate"]);
+            int idToUpdate = Int32.Parse(stringId);
+
+            Debug.WriteLine("id received was " + idToUpdate);
+            Record editRecord = new Record();
+
+            editRecord = allRecords.Find(obj => obj.ID == idToUpdate);
+            Debug.WriteLine("found in List was " + editRecord);
+
+            return View("UpdateA3CSV", editRecord);
+        }
+
         /// <summary>
         /// Method that actualy updates the entry changes to the csv file
         /// </summary>
         /// <param name="editRecord"></param>
         [HttpPost]
-        public void UpdateA3(Record editRecord)
+        public void UpdateRecordCSV(Record editRecord)
         {
             Debug.WriteLine("Inside method UpdateA3 with "+ editRecord.ID);
-            //CsvController csvHelper = new CsvController();
-            DatabaseController dbController = new DatabaseController();
+            CsvController csvHelper = new CsvController();
 
             try
             {
-                //csvHelper.UpdateA3(editRecord);
-                dbController.updateEntry(editRecord);
+                csvHelper.updateEntry(editRecord);
             } catch(Exception e)
             {
                 Debug.WriteLine(e);
             }
          }
+
+        /// <summary>
+        /// Method that actualy updates the entry changes to the database
+        /// </summary>
+        /// <param name="editRecord"></param>
+        [HttpPost]
+        public void UpdateRecordDB(Record editRecord)
+        {
+            Debug.WriteLine("Inside method UpdateA3 with " + editRecord.ID);
+            DatabaseController dbController = new DatabaseController();
+
+            try
+            {
+                dbController.updateEntry(editRecord);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

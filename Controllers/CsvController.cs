@@ -11,11 +11,11 @@ using Microsoft.AspNetCore.Mvc;
 */
 namespace LanguageProjectAsp.Controllers
 {
-    public class CsvController : Controller
+    public class CsvController : BaseDataController
     {
         private static readonly string filePath = "D:\\13100262.csv";
 
-        public List<Record> readAllFromCsv()
+        public override List<Record> readAll()
         {
             List<Record> recordsFromCsv = new List<Record>();
             try
@@ -42,7 +42,7 @@ namespace LanguageProjectAsp.Controllers
         /// Method that saves the entry to the csv file
         /// </summary>
         /// <param name="entry"></param>
-        public void SaveToCsv(Record entry)
+        public override void addEntry(Record entry)
         {
             StreamWriter writer = new StreamWriter(filePath, true);
             writer.WriteLine(entry.ToStringCSV());
@@ -53,7 +53,7 @@ namespace LanguageProjectAsp.Controllers
         /// Method that deletes the entry from file.
         /// Rodrigo Eltz 040913098
         /// </summary>
-        public void DeleteEntry(int idToDelete)
+        public override void deleteEntry(int idToDelete)
         {
             string tempFile = "D:\\13100262.csv-copy.csv";
             StreamWriter sw = System.IO.File.CreateText(tempFile);
@@ -78,7 +78,7 @@ namespace LanguageProjectAsp.Controllers
             }
 
             sw.Close();
-            this.readAllFromCsv();
+            this.readAll();
             System.IO.File.Delete(filePath);
             System.IO.File.Move(tempFile, filePath);
         }
@@ -88,7 +88,7 @@ namespace LanguageProjectAsp.Controllers
         /// Method that actualy updates the entry changes to the csv file
         /// </summary>
         /// <param name="entry"></param>
-        public void UpdateA3(Record editRecord)
+        public override void updateEntry(Record editRecord)
         {
             Debug.WriteLine("Inside method UpdateA3 with " + editRecord.ID);
 

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Exercise 4 - Database";
+    ViewData["Title"] = "Assignment 4 - Database";
 }
 @model RecordsAndEntries
 
@@ -35,13 +35,13 @@
                         </td>
                     }
                     <td>
-                        <form method="post" runat="server" asp-action="UpdateA3">
+                        <form method="post" runat="server" asp-action="UpdateRecordDBPage">
                             <input name="idToUpdate" asp-for="idToUpdate" value="@element.ID" style="display: none;" />
-                            <button class="btn-secondary" asp-action="UpdateRecord">Edit</button>
+                            <button class="btn-secondary" type="submit">Edit</button>
                         </form>
                     </td>
                     <td>
-                        <form method="post" runat="server" asp-action="DeleteEntry">
+                        <form method="post" runat="server" asp-action="DeleteEntryDB">
                             <input name="idToDelete" asp-for="idToDelete" value="@element.ID" style="display: none;" />
                             <button type="submit" class="btn-secondary">Delete</button>
                         </form>
@@ -63,7 +63,7 @@
                 <div class="modal-title"> Add new entry - Rodrigo Eltz 040913098</div>
                 
             </div>
-            <form id="new-entry" method="post" runat="server" asp-action="EntryTransform">
+            <form id="new-entry" method="post" runat="server" asp-action="addRecordDB">
                 <div class="form-group m-4">
                     <label>Ref Date</label>
                     <input class="form-control" name="refDate" type="number" asp-for="entry.RefDate" />
