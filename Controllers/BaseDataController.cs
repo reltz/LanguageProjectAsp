@@ -13,12 +13,28 @@ namespace LanguageProjectAsp.Controllers
 {
     public abstract class BaseDataController : Controller
     {
+        /// <summary>
+        /// Read operation
+        /// </summary>
+        /// <returns></returns>
         public abstract List<Record> readAll();
 
+        /// <summary>
+        /// Delete operation
+        /// </summary>
+        /// <param name="id"></param>
         public abstract void deleteEntry(int id);
 
+        /// <summary>
+        /// Create operation
+        /// </summary>
+        /// <param name="entry"></param>
         public abstract void addEntry(Record entry);
 
+        /// <summary>
+        /// Update operation
+        /// </summary>
+        /// <param name="entry"></param>
         public abstract void updateEntry(Record entry);
     }
 }

@@ -46,7 +46,6 @@ namespace LanguageProjectAsp.Controllers
         /// <returns></returns>
         public ViewResult Assign4DB()
         {
-            //this.readAllFromCsv();
             this.readAllFromDB();
             RecordsAndEntries recordsAndEntries = new RecordsAndEntries();
             recordsAndEntries.records = allRecords;

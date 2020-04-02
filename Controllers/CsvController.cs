@@ -15,6 +15,10 @@ namespace LanguageProjectAsp.Controllers
     {
         private static readonly string filePath = "D:\\13100262.csv";
 
+        /// <summary>
+        /// Method that retrieves all records from CSV
+        /// </summary>
+        /// <returns></returns>
         public override List<Record> readAll()
         {
             List<Record> recordsFromCsv = new List<Record>();
@@ -87,7 +91,7 @@ namespace LanguageProjectAsp.Controllers
         /// <summary>
         /// Method that actualy updates the entry changes to the csv file
         /// </summary>
-        /// <param name="entry"></param>
+        /// <param name="editRecord"></param>
         public override void updateEntry(Record editRecord)
         {
             Debug.WriteLine("Inside method UpdateA3 with " + editRecord.ID);
