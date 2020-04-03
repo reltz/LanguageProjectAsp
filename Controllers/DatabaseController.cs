@@ -142,6 +142,16 @@ namespace LanguageProjectAsp.Controllers
             return elevenAgeGroupResponse;
         }
 
+        public Array females15yoResponse()
+        {
+            Array females15yoResponse = db.Records
+                .Where(r => r.Sex.Equals("Females") && r.AgeGroup.Equals("15 years"))
+                .GroupBy(r => r.StudentResponse)
+                .Select(blob => new { Key = blob.Key, count = blob.Count() })
+                .ToArray();
+
+            return females15yoResponse;
+        }
         // response from 15 year old females
     
 

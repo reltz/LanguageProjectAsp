@@ -58,6 +58,11 @@ namespace LanguageProjectAsp.Controllers
             return View("~/Views/Home/EleventAgeGroupResponseChart.cshtml", ElevenAgeGroupResponseData());
         }
 
+        public ViewResult Females15yoChart()
+        {
+            return View("~/Views/Home/Females15yoResponseChart.cshtml", Females15yoResponseData());
+        }
+
         // Data fetching methods
 
 
@@ -88,6 +93,12 @@ namespace LanguageProjectAsp.Controllers
         public string ElevenAgeGroupResponseData()
         {
             var json = JsonSerializer.Serialize(db.elevenStudentResponse());
+            return json;
+        }
+
+        public string Females15yoResponseData()
+        {
+            var json = JsonSerializer.Serialize(db.females15yoResponse());
             return json;
         }
     }
