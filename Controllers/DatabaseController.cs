@@ -106,6 +106,10 @@ namespace LanguageProjectAsp.Controllers
             return countAgeGroups;
         }
 
+        /// <summary>
+        /// Query that retrieves from the database the data of gender of students
+        /// </summary>
+        /// <returns></returns>
         public Array countGender()
         {
             Array countGender = db.Records.GroupBy(record => record.Sex).Select(blob => new { Gender = blob.Key, count = blob.Count() }).ToArray();
@@ -113,6 +117,10 @@ namespace LanguageProjectAsp.Controllers
             return countGender;
         }
 
+        /// <summary>
+        /// Query that retrieves from the database the data with all Student Response
+        /// </summary>
+        /// <returns></returns>
         public Array countStudentResponse()
         {
             Array countStudentResponse = db.Records.GroupBy(record => record.StudentResponse).Select(blob => new { Key = blob.Key, count = blob.Count() }).ToArray();
@@ -120,6 +128,10 @@ namespace LanguageProjectAsp.Controllers
             return countStudentResponse;
         }
 
+        /// <summary>
+        /// Query that retrieves from the database the data of Student Response only by Males
+        /// </summary>
+        /// <returns></returns>
         public Array studentResponseMale()
         {
             Array countMaleResponse = db.Records
@@ -131,6 +143,10 @@ namespace LanguageProjectAsp.Controllers
             return countMaleResponse;
         }
 
+        /// <summary>
+        /// Query that retrieves an array with the data of Student Response only from the 11 years old group
+        /// </summary>
+        /// <returns></returns>
         public Array elevenStudentResponse()
         {
             Array elevenAgeGroupResponse = db.Records
@@ -142,6 +158,10 @@ namespace LanguageProjectAsp.Controllers
             return elevenAgeGroupResponse;
         }
 
+        /// <summary>
+        /// Query that retrieves an array with the data of Student Response only from Females of 15 years old
+        /// </summary>
+        /// <returns></returns>
         public Array females15yoResponse()
         {
             Array females15yoResponse = db.Records
@@ -152,8 +172,5 @@ namespace LanguageProjectAsp.Controllers
 
             return females15yoResponse;
         }
-        // response from 15 year old females
-    
-
     }
 }
