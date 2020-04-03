@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "Age Group Chart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model string
+
+    <h1>@ViewData["Title"] - Rodrigo Eltz 040913098 </h1>
+
+@section Scripts
+{
+
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+		google.charts.load('current', { 'packages': ['corechart', 'bar', 'table'], callback: drawChart });
+
+
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Age group');
+        data.addColumn('number', 'Count');
+        var rows = [];
+
+        let json = JSON.parse(@Html.Raw(Json.Serialize(Model)));
+
+        json.forEach(element => {
+            rows.push(new Array(element.Key, element.count));
+        });
+        data.addRows(rows);
+
+
+        var options = {
+            title: 'Age groups Histogram',
+            width: 600,
+            height: 500
+        };
+
+        var chart = new google.visualization.BarChart(document.querySelector('#myFirstChart'));
+        var chart2 = new google.visualization.PieChart(document.querySelector('#second-chart'));
+
+        chart2.draw(data, options)
+        chart.draw(data, options);
+
+    }
+
+    </script>
+}
+<div id="myFirstChart"></div>
+<div id="second-chart"></div>
+

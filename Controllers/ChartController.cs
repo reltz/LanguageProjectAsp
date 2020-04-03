@@ -29,14 +29,65 @@ namespace LanguageProjectAsp.Controllers
         /// <returns></returns>
         public ViewResult Charts()
         {
-            return View("~/Views/Home/Charts.cshtml", AgeGroupChartData());
+            return View("~/Views/Home/Charts.cshtml");
         }
+
+        public ViewResult AgeGroupChart()
+        {
+            return View("~/Views/Home/AgeGroupChart.cshtml", AgeGroupChartData());
+        }
+
+
+        public ViewResult GenderChart()
+        {
+            return View("~/Views/Home/GenderChart.cshtml", GenderChartData());
+        }
+
+        public ViewResult StudentResponseChart()
+        {
+            return View("~/Views/Home/StudentResponseChart.cshtml", StudentResponseData());
+        }
+
+        public ViewResult MaleStudentResponseChart()
+        {
+            return View("~/Views/Home/MaleStudentResponse.cshtml", MaleStudentResponseData());
+        }
+    
+        public ViewResult ElevenAgeGroupResponseChart()
+        {
+            return View("~/Views/Home/EleventAgeGroupResponseChart.cshtml", ElevenAgeGroupResponseData());
+        }
+
+        // Data fetching methods
 
 
         public string AgeGroupChartData()
         {
             var json = JsonSerializer.Serialize(db.countAgeGroup());
-            System.Diagnostics.Debug.WriteLine(json);
+            return json;
+        }
+
+        public string GenderChartData()
+        {
+            var json = JsonSerializer.Serialize(db.countGender());
+            return json;
+        }
+
+        public string StudentResponseData()
+        {
+            var json = JsonSerializer.Serialize(db.countStudentResponse());
+            return json;
+        }
+
+        public string MaleStudentResponseData()
+        {
+            var json = JsonSerializer.Serialize(db.studentResponseMale());
+            return json;
+        }
+
+        public string ElevenAgeGroupResponseData()
+        {
+            var json = JsonSerializer.Serialize(db.elevenStudentResponse());
             return json;
         }
     }

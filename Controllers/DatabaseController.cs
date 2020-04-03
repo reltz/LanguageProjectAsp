@@ -21,8 +21,6 @@ namespace LanguageProjectAsp.Controllers
         /// Instance of DatabaseContext
         /// </summary>
         DatabaseContext db = new DatabaseContext();
-        private static readonly string countAgeGroupQuery = "SELECT COUNT(AGE_GROUP) FROM RECORDS GROUP BY AGE_GROUP";
-        private static readonly string distinctAgeGroupQuery = "SELECT DISTINCT AGE_GROUP FROM RECORDS";
 
         /// <summary>
         /// Retrieves all entries from the database, table Records.
@@ -55,7 +53,8 @@ namespace LanguageProjectAsp.Controllers
                 Record entryToDelete = db.Records.Find(id);
                 db.Records.Remove(entryToDelete);
                 db.SaveChanges();
-            } catch ( Exception e)
+            }
+            catch (Exception e)
             {
                 Debug.WriteLine(e);
             }
@@ -72,7 +71,8 @@ namespace LanguageProjectAsp.Controllers
             {
                 db.Records.Add(entry);
                 db.SaveChanges();
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Debug.WriteLine(e);
             }
@@ -88,22 +88,62 @@ namespace LanguageProjectAsp.Controllers
             {
                 db.Records.Update(entry);
                 db.SaveChanges();
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Debug.WriteLine(e);
             }
         }
 
+        /// <summary>
+        /// Method that retrieves an array with all age groups and the count for each
+        /// </summary>
+        /// <returns></returns>
         public Array countAgeGroup()
         {
-            List<string> distinctAgeGroups = new List<string>();
-           // List<int> countAgeGroups = new List<int>();
+            Array countAgeGroups = db.Records.GroupBy(record => record.AgeGroup).Select(blob => new { blob.Key, count = blob.Count() }).ToArray();
 
-           distinctAgeGroups =  db.Records.Select(record => record.AgeGroup).Distinct().ToList<string>();
-
-           Array countAgeGroups = db.Records.GroupBy(record => record.AgeGroup).Select(blob => new { blob.Key,  count = blob.Count() }).ToArray();
-
-           return countAgeGroups;
+            return countAgeGroups;
         }
+
+        public Array countGender()
+        {
+            Array countGender = db.Records.GroupBy(record => record.Sex).Select(blob => new { Gender = blob.Key, count = blob.Count() }).ToArray();
+
+            return countGender;
+        }
+
+        public Array countStudentResponse()
+        {
+            Array countStudentResponse = db.Records.GroupBy(record => record.StudentResponse).Select(blob => new { Key = blob.Key, count = blob.Count() }).ToArray();
+
+            return countStudentResponse;
+        }
+
+        public Array studentResponseMale()
+        {
+            Array countMaleResponse = db.Records
+                .Where(r => r.Sex.Equals("Males"))
+                .GroupBy(record => record.StudentResponse)
+                .Select(blob => new { Key = blob.Key, count = blob.Count() })
+                .ToArray();
+
+            return countMaleResponse;
+        }
+
+        public Array elevenStudentResponse()
+        {
+            Array elevenAgeGroupResponse = db.Records
+                .Where(r => r.AgeGroup.Equals("11 Years"))
+                .GroupBy(record => record.StudentResponse)
+                .Select(blob => new { Key = blob.Key, count = blob.Count() })
+                .ToArray();
+
+            return elevenAgeGroupResponse;
+        }
+
+        // response from 15 year old females
+    
+
     }
 }
