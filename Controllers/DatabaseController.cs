@@ -1,10 +1,14 @@
 ﻿using LanguageProjectAsp.DAL;
 using LanguageProjectAsp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection.Metadata;
 /** Database controller
 * @Author Rodrigo Eltz
 */
@@ -17,6 +21,8 @@ namespace LanguageProjectAsp.Controllers
         /// Instance of DatabaseContext
         /// </summary>
         DatabaseContext db = new DatabaseContext();
+        private static readonly string countAgeGroupQuery = "SELECT COUNT(AGE_GROUP) FROM RECORDS GROUP BY AGE_GROUP";
+        private static readonly string distinctAgeGroupQuery = "SELECT DISTINCT AGE_GROUP FROM RECORDS";
 
         /// <summary>
         /// Retrieves all entries from the database, table Records.
@@ -86,6 +92,18 @@ namespace LanguageProjectAsp.Controllers
             {
                 Debug.WriteLine(e);
             }
+        }
+
+        public Array countAgeGroup()
+        {
+            List<string> distinctAgeGroups = new List<string>();
+           // List<int> countAgeGroups = new List<int>();
+
+           distinctAgeGroups =  db.Records.Select(record => record.AgeGroup).Distinct().ToList<string>();
+
+           Array countAgeGroups = db.Records.GroupBy(record => record.AgeGroup).Select(blob => new { blob.Key,  count = blob.Count() }).ToArray();
+
+           return countAgeGroups;
         }
     }
 }

@@ -4,7 +4,6 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using LanguageProjectAsp.Models;
-using System.IO;
 /** Main application controller
 * @Author Rodrigo Eltz
 */
